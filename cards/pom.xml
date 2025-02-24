@@ -12,6 +12,7 @@
 	<artifactId>cards</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cards</name>
+	<packaging>jar</packaging>
 	<description>Microservice for Cards</description>
 	<url/>
 	<licenses>
@@ -73,6 +74,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.4</version>
+				<configuration>
+					<to>
+						<image>deryabozan/${project.artifactId}:v1</image>
+					</to>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
