@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5d82d8e5-fd6e-4781-8712-21cbb19f3c88" name="Changes" comment="loans servisi buildpacks ile imaj haline getirildi. card servisi google jib ile imaj haline getirildi ve accounts projesinde docker-compose.yml dosyası tanımlandı">
+      <change beforePath="$PROJECT_DIR$/accounts/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/AccountsApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/audit/AuditAwareImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/constans/AccountsConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/controller/AccountsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/dto/AccountsDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/dto/CustomerDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/dto/ErrorResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/dto/ResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/entity/Accounts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/entity/BaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/entity/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/exception/CustomerAlreadyExistsException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/exception/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/exception/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/mapper/AccountsMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/mapper/CustomerMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/repository/AccountsRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/repository/CustomerRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/service/IAccountsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/java/com/micro/accounts/service/impl/AccountsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/main/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/src/test/java/com/micro/accounts/AccountsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/CardsApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/audit/AuditAwareImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/constans/CardsConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/controller/CardsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/dto/CardsDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/dto/ErrorResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/dto/ResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/entity/BaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/entity/Cards.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/exception/CardAlreadyExistsException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/exception/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/exception/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/mapper/CardsMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/repository/CardsRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/service/ICardsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/java/com/micro/cards/service/impl/CardsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/main/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards/src/test/java/com/micro/cards/CardsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/LoansApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/audit/AuditAwareImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/constans/LoansConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/controller/LoansController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/dto/ErrorResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/dto/LoansDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/dto/ResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/entity/BaseEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/entity/Loans.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/exception/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/exception/LoanAlreadyExistsException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/exception/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/mapper/LoansMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/repository/LoansRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/service/ILoansService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/java/com/micro/loans/service/impl/LoansServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/main/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loans/src/test/java/com/micro/loans/LoansApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;drybozan&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/drybozan/micro-service.git&quot;,
+    &quot;accountId&quot;: &quot;a7fc0c75-d310-4e1e-8161-08ad64007f25&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2tLfSVBDPeadFj5Fq8HEvwzMx7j" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/deryabozan/microservice-egitim/management-microservice/v1-springboot"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d82d8e5-fd6e-4781-8712-21cbb19f3c88" name="Changes" comment="" />
+      <created>1740136274593</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740136274593</updated>
+    </task>
+    <task id="LOCAL-00001" summary="accounts mikroservisi için Dockerfile dosyası aracılığıyla imaj oluşturuldu.">
+      <option name="closed" value="true" />
+      <created>1740144734353</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740144734353</updated>
+    </task>
+    <task id="LOCAL-00002" summary="loans servisi buildpacks ile imaj haline getirildi. card servisi google jib ile imaj haline getirildi ve accounts projesinde docker-compose.yml dosyası tanımlandı">
+      <option name="closed" value="true" />
+      <created>1740385524268</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1740385524268</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="accounts mikroservisi için Dockerfile dosyası aracılığıyla imaj oluşturuldu." />
+    <MESSAGE value="loans servisi buildpacks ile imaj haline getirildi. card servisi google jib ile imaj haline getirildi ve accounts projesinde docker-compose.yml dosyası tanımlandı" />
+    <option name="LAST_COMMIT_MESSAGE" value="loans servisi buildpacks ile imaj haline getirildi. card servisi google jib ile imaj haline getirildi ve accounts projesinde docker-compose.yml dosyası tanımlandı" />
+  </component>
+</project>
