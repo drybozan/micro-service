@@ -30,7 +30,7 @@ services:
       service: microservice-db-config
 
   configserver:
-    image: "deryabozan/configserver:v3"
+    image: "deryabozan/configserver:v4"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -44,8 +44,29 @@ services:
       file: common-config.yml
       service: microservice-base-config
 
+  eurekaserver:
+    image: "deryabozan/eurekaserver:v4"
+    container_name: eurekaserver-ms
+    ports:
+      - "8070:8070"
+    depends_on:
+      configserver:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
+
+
   accounts:
-    image: "deryabozan/accounts:v3"
+    image: "deryabozan/accounts:v4"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -58,12 +79,14 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   loans:
-    image: "deryabozan/loans:v3"
+    image: "deryabozan/loans:v4"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -75,12 +98,14 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   cards:
-    image: "deryabozan/cards:v3"
+    image: "deryabozan/cards:v4"
     container_name: cards-ms
     ports:
       - "9000:9000"
@@ -92,9 +117,11 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
 networks:
   eazybank:
