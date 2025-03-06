@@ -2,7 +2,7 @@ services:
   accountsdb:
     container_name: accountsdb
     ports:
-      - 3306:3306  #dis dunyaya 3306 portu uzerinden aciyorum
+      - 3306:3306
     environment:
       MYSQL_DATABASE: accountsdb
     extends:
@@ -12,7 +12,7 @@ services:
   loansdb:
     container_name: loansdb
     ports:
-      - 3307:3306 #dis dunyaya 3307 portu uzerinden aciyorum
+      - 3307:3306
     environment:
       MYSQL_DATABASE: loansdb
     extends:
@@ -22,7 +22,7 @@ services:
   cardsdb:
     container_name: cardsdb
     ports:
-      - 3308:3306 #dis dunyaya 3308 portu uzerinden aciyorum
+      - 3308:3306
     environment:
       MYSQL_DATABASE: cardsdb
     extends:
@@ -35,7 +35,7 @@ services:
     ports:
       - "8071:8071"
     healthcheck:
-      test: "curl --fail --silent localhost:8071/actuator/health | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -51,7 +51,6 @@ services:
       - "8080:8080"
     environment:
       SPRING_APPLICATION_NAME: "accounts"
-#      kendi icinde containerlar aynı agda 3306 uzerinden haberlesirler
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
     depends_on:
       accountsdb:
