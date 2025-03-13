@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: "gatewayserver"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  cloud: #eureka keşif sunucusuna bağlan ve mikroservisler hakkındaki ayrıntıları al
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+
+management: #actuator icin dsardan sunucu durumunu takip etmek icin api acar
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: "gatewayserver"
+    description: "Eazy Bank Gateway Server Application"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      micro:
+        gatewayserver: DEBUG
+
+#servisler uzun sure cevap vermediginde circuitbreaker kullaniyoruz
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10 #baslangicta en az kac istegi izlemesi gerektigini belirler
+      permittedNumberOfCallsInHalfOpenState: 2 # devre kesici modeli bir kez acik duruma gectiginde sonsuza kadar asla acik kalmamali.Periyodik olarak yari acik druma gececek
+      failureRateThreshold: 50 # isteklerin yuzde ellisi basarisiz olusa devre kesici modeli kapalı durumdan acik duruma gecebilir
+      waitDurationInOpenState: 10000 #acik durumda bekleme suresi
+

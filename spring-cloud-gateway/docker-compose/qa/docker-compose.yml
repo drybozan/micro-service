@@ -2,7 +2,7 @@ services:
   accountsdb:
     container_name: accountsdb
     ports:
-      - 3306:3306
+      - 3306:3306  #dis dunyaya 3306 portu uzerinden aciyorum
     environment:
       MYSQL_DATABASE: accountsdb
     extends:
@@ -12,7 +12,7 @@ services:
   loansdb:
     container_name: loansdb
     ports:
-      - 3307:3306
+      - 3307:3306 #dis dunyaya 3307 portu uzerinden aciyorum
     environment:
       MYSQL_DATABASE: loansdb
     extends:
@@ -22,7 +22,7 @@ services:
   cardsdb:
     container_name: cardsdb
     ports:
-      - 3308:3306
+      - 3308:3306 #dis dunyaya 3308 portu uzerinden aciyorum
     environment:
       MYSQL_DATABASE: cardsdb
     extends:
@@ -30,12 +30,12 @@ services:
       service: microservice-db-config
 
   configserver:
-    image: "deryabozan/configserver:v3"
+    image: "deryabozan/configserver:v5"
     container_name: configserver-ms
     ports:
       - "8071:8071"
     healthcheck:
-      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8071/actuator/health | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -45,7 +45,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "deryabozan/eurekaserver:v4"
+    image: "deryabozan/eurekaserver:v5"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -64,25 +64,35 @@ services:
     environment:
       SPRING_APPLICATION_NAME: "eurekaserver"
 
+
   accounts:
-    image: "deryabozan/accounts:v3"
+    image: "deryabozan/accounts:v5"
     container_name: accounts-ms
     ports:
       - "8080:8080"
     environment:
       SPRING_APPLICATION_NAME: "accounts"
+      #      kendi icinde containerlar aynı agda 3306 uzerinden haberlesirler
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
     depends_on:
       accountsdb:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   loans:
-    image: "deryabozan/loans:v3"
+    image: "deryabozan/loans:v5"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -94,12 +104,20 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   cards:
-    image: "deryabozan/cards:v3"
+    image: "deryabozan/cards:v5"
     container_name: cards-ms
     ports:
       - "9000:9000"
@@ -111,9 +129,35 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:9000/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
+
+  gatewayserver:
+    image: "deryabozan/gatewayserver:v5"
+    container_name: gatewayserver-ms
+    ports:
+      - "8072:8072"
+    depends_on:
+      accounts:
+        condition: service_healthy
+      loans:
+        condition: service_healthy
+      cards:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "gatewayserver"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
 
 networks:
   eazybank:

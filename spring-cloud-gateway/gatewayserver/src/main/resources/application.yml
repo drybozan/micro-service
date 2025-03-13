@@ -10,7 +10,7 @@ spring:
           enabled: false
           lowerCaseServiceId: true
 
-management:
+management: #actuator icin dsardan sunucu durumunu takip etmek icin api acar
   endpoints:
     web:
       exposure:
@@ -31,6 +31,6 @@ info:
 logging:
   level:
     com:
-      eazybytes:
+      micro:
         gatewayserver: DEBUG
 
