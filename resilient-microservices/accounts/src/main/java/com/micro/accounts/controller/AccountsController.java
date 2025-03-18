@@ -6,11 +6,14 @@ import com.micro.accounts.dto.CustomerDto;
 import com.micro.accounts.dto.ErrorResponseDto;
 import com.micro.accounts.dto.ResponseDto;
 import com.micro.accounts.service.IAccountsService;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.responses.*;
 import io.swagger.v3.oas.annotations.tags.*;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -29,6 +32,8 @@ import jakarta.validation.constraints.Pattern;
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE}) //json veri tipini desteklediğini belirtir
 @Validated //bu controller içindeki nesneleri validasyona tabii tut
 public class AccountsController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     private final IAccountsService iAccountsService;
 
@@ -193,11 +198,21 @@ public class AccountsController {
     }
     )
     //@Value anotasyonu kullnarak konfigürasyon yaptık
+    @Retry(name = "getBuildInfo",fallbackMethod = "getBuildInfoFallback")
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo() {
+        logger.debug("getBuildInfo() method Invoked");
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
+    }
+
+    public ResponseEntity<String> getBuildInfoFallback(Throwable throwable) {
+        logger.debug("getBuildInfoFallback() method Invoked");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("0.9");
     }
 
     @Operation(
