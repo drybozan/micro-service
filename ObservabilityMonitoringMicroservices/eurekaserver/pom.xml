@@ -75,7 +75,7 @@
 				<version>3.4.4</version>
 				<configuration>
 					<to>
-						<image>deryabozan/${project.artifactId}:v6</image>
+						<image>deryabozan/${project.artifactId}:v7</image>
 					</to>
 				</configuration>
 			</plugin>
