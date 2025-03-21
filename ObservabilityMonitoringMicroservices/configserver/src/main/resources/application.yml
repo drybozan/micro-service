@@ -36,6 +36,9 @@ management:
       health:
         probes:
           enabled: true
+  metrics: # prometheus tarafından kullanılan bilgiler,aktif et
+    tags:
+      application: ${spring.application.name}
 
 server:
   port: 8071

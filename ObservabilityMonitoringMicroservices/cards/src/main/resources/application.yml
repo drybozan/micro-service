@@ -40,6 +40,9 @@ management:
   info: # eureka tarafından kullanılan bilgiler,aktif et
     env:
       enabled: true
+  metrics: # prometheus tarafından kullanılan bilgiler,aktif et
+    tags:
+      application: ${spring.application.name}
 
 eureka:
   instance:
