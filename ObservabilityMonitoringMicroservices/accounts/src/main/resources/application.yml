@@ -70,6 +70,8 @@ logging:
     com:
       micro:
         accounts: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]" #openteleetry log deseni
 
 resilience4j.circuitbreaker:
   configs:
