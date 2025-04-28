@@ -1,0 +1,20 @@
+server:
+  port: 9010
+
+spring:
+  application:
+    name: "message"
+  cloud:
+    function:
+      definition: email|sms
+    stream:
+      bindings:
+        emailsms-in-0: # servisler mesaj almak icin
+          destination: send-communication # rabbit exchange ismi
+          group: ${spring.application.name}
+        emailsms-out-0: # servisler mesaj gondermek icin
+          destination: communication-sent # rabbit exchange ismi
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092 # broker ın calistigi adres
