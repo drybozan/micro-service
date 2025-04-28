@@ -1,0 +1,110 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: "accounts"
+  profiles:
+    active: "prod"
+  datasource:
+    url: jdbc:mysql://localhost:3306/accountsdb
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      mode: always
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+    function:
+      definition: updateCommunication # AccountsFunctions.java classındaki mesajları alan consumer ismi,birden fazla oldugunda noktalı virgul ile ayrılabilir
+    stream:
+      bindings:
+        updateCommunication-in-0:
+          destination: communication-sent # rabbit exchange ismi
+          group: ${spring.application.name}
+        sendCommunication-out-0:  # rabbite mesaj gondermke icin
+          destination: send-communication # rabbit exchange ismi
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:  #actuator tarafınsan kapatılması icin URL ac http://localhost:8080/actuator/shutdown
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info: # eureka tarafından kullanılan bilgiler,aktif et
+    env:
+      enabled: true
+  metrics: # prometheus tarafından kullanılan bilgiler,aktif et
+    tags:
+      application: ${spring.application.name}
+
+eureka:
+  instance:
+    preferIpAddress: true #diğer mikroservisler bununla iletişim kurabilsin ip üzerinden
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+#bu bilgiler ile bu mikroservis hakkında eureka panosundan listeleyebileceğiz
+info:
+  app:
+    name: "accounts"
+    description: "Eazy Bank Accounts Application"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      micro:
+        accounts: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]" #openteleetry log deseni
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
+
+resilience4j.retry:
+  configs:
+    default:
+      maxAttempts: 3
+      waitDuration: 500
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      ignoreExceptions: # bu hata geldiginde yeniden deneme yapmayacak
+        - java.lang.NullPointerException
+      retryExceptions: # bu hata geldiginde yeniden deneme yapacak
+        - java.util.concurrent.TimeoutException
+
+resilience4j.ratelimiter:
+  configs:
+    default:
+      timeoutDuration: 1000
+      limitRefreshPeriod: 5000
+      limitForPeriod: 1
