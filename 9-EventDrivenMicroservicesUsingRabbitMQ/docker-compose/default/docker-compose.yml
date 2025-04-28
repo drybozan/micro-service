@@ -1,4 +1,21 @@
 services:
+  rabbit:
+    image: rabbitmq:4.0-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.7
     container_name: keycloak
@@ -259,7 +276,7 @@ services:
 
 
   configserver:
-    image: "deryabozan/configserver:v8"
+    image: "deryabozan/configserver:v9"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -276,7 +293,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "deryabozan/eurekaserver:v8"
+    image: "deryabozan/eurekaserver:v9"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -299,20 +316,22 @@ services:
 
   # port bilgisini sildim container dış dünyaya açık değil.
   accounts:
-    image: "deryabozan/accounts:v8"
+    image: "deryabozan/accounts:v9"
     container_name: accounts-ms
     environment:
       SPRING_APPLICATION_NAME: "accounts"
       #      kendi icinde containerlar aynı agda 3306 uzerinden haberlesirler
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
       OTEL_SERVICE_NAME: "accounts"
-
+      SPRING_RABBITMQ_HOST: "rabbit"
     depends_on:
       accountsdb:
         condition: service_healthy
       configserver:
         condition: service_healthy
       eurekaserver:
+        condition: service_healthy
+      rabbit:
         condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
@@ -326,7 +345,7 @@ services:
 
   # port bilgisini sildim container dış dünyaya açık değil.
   loans:
-    image: "deryabozan/loans:v8"
+    image: "deryabozan/loans:v9"
     container_name: loans-ms
     environment:
       SPRING_APPLICATION_NAME: "loans"
@@ -352,7 +371,7 @@ services:
 
   # port bilgisini sildim container dış dünyaya açık değil.
   cards:
-    image: "deryabozan/cards:v8"
+    image: "deryabozan/cards:v9"
     container_name: cards-ms
     environment:
       SPRING_APPLICATION_NAME: "cards"
@@ -376,7 +395,7 @@ services:
       service: microservice-eureka-config
 
   gatewayserver:
-    image: "deryabozan/gatewayserver:v8"
+    image: "deryabozan/gatewayserver:v9"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
@@ -401,6 +420,18 @@ services:
     extends:
       file: common-config.yml
       service: microservice-eureka-config
+
+  message:
+    image: "deryabozan/message:v9"
+    container_name: message-ms
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
 
 networks:
   eazybank:
